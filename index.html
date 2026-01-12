@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="author"
+      content="Gustavo Motta | https://github.com/gustavohrm"
+    />
+    <meta name="copyright" content="Coden Agency | https://coden.agency/" />
+    <title>Matrix</title>
+    <style>
+      :root {
+        --color-text: #fafafa;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        background-color: #171717;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      span {
+        height: 48px;
+        width: 32px;
+        font-size: 32px;
+        font-family: monospace, sans-serif;
+        transition: color 1200ms;
+        cursor: default;
+      }
+      span:hover {
+        color: var(--color-text) !important;
+        transition-duration: 0ms;
+        text-shadow: 0 0 16px var(--color-text), 0 0 32px var(--color-text),
+          0 0 64px var(--color-text);
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const viewWidth = window.innerWidth;
+        const viewHeight = window.innerHeight;
+
+        const chars =
+          "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const colors = ["#262626", "#404040", "#525252"];
+        const getRandomIndex = (len) => (Math.random() * len) | 0;
+
+        const charsLen = chars.length;
+        const colorsLen = colors.length;
+
+        const createCol = () => {
+          const charHeight = 48;
+          const colSize = (viewHeight / charHeight) | 0;
+
+          const frag = document.createDocumentFragment();
+          for (let i = 0; i < colSize; i++) {
+            const el = document.createElement("span");
+            el.textContent = chars[getRandomIndex(charsLen)];
+            el.style.color = colors[getRandomIndex(colorsLen)];
+            frag.appendChild(el);
+          }
+
+          const col = document.createElement("div");
+          col.appendChild(frag);
+
+          return col;
+        };
+
+        const createMatrix = () => {
+          const container = document.body;
+          const charWidth = 32;
+          const matrixSize = (viewWidth / charWidth) | 0;
+
+          const frag = document.createDocumentFragment();
+          for (let i = 0; i < matrixSize; i++) frag.appendChild(createCol());
+          container.appendChild(frag);
+        };
+
+        const createChangers = (n) => {
+          const letters = document.querySelectorAll("span");
+          const lettersLen = letters.length;
+          const total = n;
+
+          const animate = () => {
+            for (let i = 0; i < total; i++) {
+              const letter = letters[getRandomIndex(lettersLen)];
+              letter.textContent = chars[getRandomIndex(charsLen)];
+              letter.style.color = colors[getRandomIndex(colorsLen)];
+            }
+            requestAnimationFrame(animate);
+          };
+
+          requestAnimationFrame(animate);
+        };
+
+        createMatrix();
+        createChangers(4);
+      });
+    </script>
+  </body>
+</html>
