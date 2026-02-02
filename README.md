@@ -17,6 +17,10 @@ Lightweight Matrix-style HTML wallpaper with hover interaction — built for [Li
 https://github.com/gustavohrm/lively-matrix
 ```
 
+## Preview
+
+![preview](preview.gif "Preview")
+
 ## License
 
 The code is available under the [MIT license](LICENSE).
